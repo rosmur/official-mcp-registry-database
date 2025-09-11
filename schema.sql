@@ -5,7 +5,11 @@ CREATE TABLE servers (
     description TEXT,
     status TEXT,
     version TEXT,
-    server_type TEXT -- New column to indicate 'remote' or 'local' based on your custom logic
+    server_type TEXT, -- New column to indicate 'remote' or 'local' based on your custom logic
+    meta_id TEXT UNIQUE, -- The UUID from the JSON, now in servers table
+    published_at TEXT,
+    updated_at TEXT,
+    is_latest BOOLEAN
 );
 
 -- Table for repository details, linked to servers
@@ -16,16 +20,5 @@ CREATE TABLE repositories (
     source TEXT,
     subfolder TEXT,
     repo_id TEXT, -- Original 'id' field from repository object, renamed to avoid conflict
-    FOREIGN KEY (server_id) REFERENCES servers(id)
-);
-
--- Table for official metadata, linked to servers
-CREATE TABLE server_official_metadata (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    server_id INTEGER NOT NULL UNIQUE,
-    meta_id TEXT NOT NULL UNIQUE, -- The UUID from the JSON
-    published_at TEXT,
-    updated_at TEXT,
-    is_latest BOOLEAN,
     FOREIGN KEY (server_id) REFERENCES servers(id)
 );

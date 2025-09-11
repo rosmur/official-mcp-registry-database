@@ -41,14 +41,19 @@ def populate_database():
         for server in servers_data:
             # Insert into servers table
             server_type = get_server_type(server)
+            meta = server.get("_meta", {}).get("io.modelcontextprotocol.registry/official", {})
             cursor.execute(
-                "INSERT INTO servers (name, description, status, version, server_type) VALUES (?, ?, ?, ?, ?)",
+                "INSERT INTO servers (name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     server.get("name"),
                     server.get("description"),
                     server.get("status"),
                     server.get("version"),
                     server_type,
+                    meta.get("id"),
+                    meta.get("published_at"),
+                    meta.get("updated_at"),
+                    meta.get("is_latest"),
                 ),
             )
             server_id = cursor.lastrowid
@@ -64,20 +69,6 @@ def populate_database():
                         repository.get("source"),
                         repository.get("subfolder"),
                         repository.get("id"),
-                    ),
-                )
-
-            # Insert into server_official_metadata table
-            meta = server.get("_meta", {}).get("io.modelcontextprotocol.registry/official", {})
-            if meta:
-                cursor.execute(
-                    "INSERT INTO server_official_metadata (server_id, meta_id, published_at, updated_at, is_latest) VALUES (?, ?, ?, ?, ?)",
-                    (
-                        server_id,
-                        meta.get("id"),
-                        meta.get("published_at"),
-                        meta.get("updated_at"),
-                        meta.get("is_latest"),
                     ),
                 )
 
