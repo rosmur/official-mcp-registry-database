@@ -2,7 +2,7 @@ import sqlite3
 import httpx
 import os
 
-DATABASE_FILE = "registry.db"
+DATABASE_FILE = "official_mcp_registry.db"
 SCHEMA_FILE = "schema.sql"
 
 
@@ -50,10 +50,19 @@ def populate_database():
                 # Insert into servers table
                 server_type = get_server_type(server)
                 meta = server.get("_meta", {}).get("io.modelcontextprotocol.registry/official", {})
+
+                full_name = server.get("name", "")
+                if "/" in full_name:
+                    developer, name = full_name.split("/", 1)
+                else:
+                    developer = ""
+                    name = full_name
+
                 cursor.execute(
-                    "INSERT INTO servers (name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO servers (developer, name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (
-                        server.get("name"),
+                        developer,
+                        name,
                         server.get("description"),
                         server.get("status"),
                         server.get("version"),
