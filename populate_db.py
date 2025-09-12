@@ -5,7 +5,24 @@ import os
 
 DATABASE_FILE = "registry.db"
 SCHEMA_FILE = "schema.sql"
-API_URL = "https://registry.modelcontextprotocol.io/v0/servers?version=latest"
+
+
+def get_api_url_from_http_file(file_path="get_servers.http"):
+    try:
+        with open(file_path, "r") as f:
+            content = f.read()
+            # Assuming the URL is on the first line after "GET "
+            if content.startswith("GET "):
+                return content.split(" ", 1)[1].strip()
+            else:
+                raise ValueError("HTTP file does not start with 'GET '")
+    except FileNotFoundError:
+        raise FileNotFoundError(f"HTTP file not found at {file_path}")
+    except Exception as e:
+        raise RuntimeError(f"Error reading or parsing HTTP file: {e}")
+
+
+API_URL = get_api_url_from_http_file()
 
 
 def create_tables(cursor):
