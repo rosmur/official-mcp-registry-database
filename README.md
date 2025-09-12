@@ -1,10 +1,10 @@
 # Database of the Official MCP Registry
 
-This project populates a local SQLite database with server information from the official Model Context Protocol (MCP) registry API.
+This project populates a local SQLite database with server information from the official [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol/registry) registry API.
 
 ## Overview
 
-There are currently `144` MCP servers that have been listed on the offocial registry from the MCP organizaiton.
+There are currently `159` MCP servers that have been listed on the official registry.
 
 ## Usage
 
@@ -12,6 +12,8 @@ You can interactively view the database through Datasette [here](https://lite.da
 The database is set to be updated daily at midnight UTC.
 
 ## Project Structure
+
+This is intended to be a very lightweight project with minimal code.
 
 - `schema.sql`: Defines the database schema for `servers` and `repositories` tables, along with views for server counts.
 - `populate_db.py`: A Python script that fetches server data from the official MCP registry API and populates the database.
