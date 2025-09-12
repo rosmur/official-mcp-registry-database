@@ -1,7 +1,7 @@
 -- Table for main server information
 CREATE TABLE servers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     description TEXT,
     status TEXT,
     version TEXT,
