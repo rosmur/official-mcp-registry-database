@@ -23,3 +23,18 @@ CREATE TABLE repositories (
     repo_id TEXT, -- Original 'id' field from repository object, renamed to avoid conflict
     FOREIGN KEY (server_id) REFERENCES servers(id)
 );
+
+-- View for total number of unique servers
+CREATE VIEW TotalUniqueServers AS
+SELECT COUNT(DISTINCT id) AS total_unique_servers
+FROM servers;
+
+-- View for number of local and remote servers
+CREATE VIEW ServerTypeCounts AS
+SELECT
+    server_type,
+    COUNT(id) AS count
+FROM
+    servers
+GROUP BY
+    server_type;
