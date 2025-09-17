@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-B2ootaw-.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-CxL0S8W7.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-D9fedIX3.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-BTCkDNvf.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-DU3aDxX5.ttf" as="font" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-CLVRCuM9.ttf" as="font" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        var scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          var element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          var hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          var newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((entries) => {
+          setHeight();
+        });
+        resizeObserver.observe(obj.contentWindow.document.body);
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>stats</title>
+    <script type="module" crossorigin src="./assets/index-OC46250R.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CknhX2Vy.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    <marimo-code hidden="">import%20marimo%0A%0A__generated_with%20%3D%20%220.15.5%22%0Aapp%20%3D%20marimo.App(width%3D%22medium%22)%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20pandas%20as%20pd%0A%20%20%20%20import%20seaborn%20as%20sns%0A%20%20%20%20import%20sqlalchemy%0A%20%20%20%20import%20matplotlib.pyplot%20as%20plt%0A%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20return%20mo%2C%20pd%2C%20plt%2C%20sns%2C%20sqlalchemy%0A%0A%0A%40app.cell%0Adef%20_(sns)%3A%0A%20%20%20%20sns.set(font_scale%20%3D%20.4%2C%20rc%3D%7B%22figure.dpi%22%3A300%2C%20'savefig.dpi'%3A300%7D)%0A%20%20%20%20sns.set_style(%22whitegrid%22%2C%20%7B'axes.grid'%20%3A%20False%7D)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(sqlalchemy)%3A%0A%20%20%20%20DATABASE_URL%20%3D%20%22sqlite%3A%2F%2F%2F%2FUsers%2Froshanmurthy%2Fcodebases_mbpm1%2Fofficial-mcp-registry-database%2Fofficial_mcp_registry.db%22%0A%20%20%20%20engine%20%3D%20sqlalchemy.create_engine(DATABASE_URL)%0A%20%20%20%20return%20(engine%2C)%0A%0A%0A%40app.cell%0Adef%20_(engine%2C%20pd)%3A%0A%20%20%20%20df%20%3D%20pd.read_sql_table(%22servers%22%2C%20engine)%0A%20%20%20%20filtered_df%20%3D%20df%5Bdf%5B%22server_type%22%5D!%3D%22unknown%22%5D%0A%20%20%20%20return%20(filtered_df%2C)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%23%20MCP%20Server%20Counts%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(filtered_df)%3A%0A%20%20%20%20total_distinct_servers%20%3D%20len(filtered_df)%0A%20%20%20%20return%20(total_distinct_servers%2C)%0A%0A%0A%40app.cell%0Adef%20_(mo%2C%20total_distinct_servers)%3A%0A%20%20%20%20mo.md(f%22%22%22%23%23%20There%20are%20currently%20**%7Btotal_distinct_servers%7D**%20MCP%20servers%20total%20in%20the%20official%20registry%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(filtered_df%2C%20sns)%3A%0A%20%20%20%20h%20%3D%20sns.histplot(data%3Dfiltered_df%2Cx%3D%22server_type%22)%0A%20%20%20%20h.set_title(%22Distribution%20of%20MCP%20Server%20Types%22)%0A%20%20%20%20h.set_xlabel(%22Server%20Type%22)%0A%20%20%20%20h.set_ylabel(%22Count%22)%0A%20%20%20%20h.figure.set_figwidth(2)%0A%20%20%20%20h.figure.set_figheight(2)%0A%20%20%20%20return%20(h%2C)%0A%0A%0A%40app.cell%0Adef%20_(h)%3A%0A%20%20%20%20h%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%23%20Growth%20over%20time%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(filtered_df%2C%20pd)%3A%0A%20%20%20%20%23%20Convert%20published_at%20to%20datetime%20and%20extract%20date%0A%20%20%20%20filtered_df%5B'published_date'%5D%20%3D%20pd.to_datetime(filtered_df%5B'published_at'%5D).dt.date%0A%0A%20%20%20%20%23%20Count%20servers%20by%20date%0A%20%20%20%20servers_by_date%20%3D%20filtered_df.groupby('published_date').size()%0A%0A%20%20%20%20%23%20Calculate%20cumulative%20sum%20of%20servers%20over%20time%0A%20%20%20%20cumulative_servers%20%3D%20servers_by_date.cumsum()%0A%20%20%20%20return%20cumulative_servers%2C%20servers_by_date%0A%0A%0A%40app.cell%0Adef%20_(cumulative_servers%2C%20plt%2C%20servers_by_date)%3A%0A%20%20%20%20%23%20Create%20a%20combined%20plot%20with%20cumulative%20servers%20(line)%20and%20new%20servers%20(bar)%0A%20%20%20%20fig%2C%20ax1%20%3D%20plt.subplots(figsize%3D(6%2C%203))%0A%0A%20%20%20%20%23%20Bar%20plot%20for%20new%20servers%20(servers_by_date)%0A%20%20%20%20ax1.bar(servers_by_date.index%2C%20servers_by_date.values%2C%20alpha%3D0.6%2C%20color%3D'skyblue'%2C%20label%3D'New%20Servers')%0A%20%20%20%20ax1.set_xlabel('Date')%0A%20%20%20%20ax1.set_ylabel('New%20Servers'%2C%20color%3D'skyblue')%0A%20%20%20%20ax1.tick_params(axis%3D'y'%2C%20labelcolor%3D'skyblue')%0A%0A%20%20%20%20%23%20Create%20second%20y-axis%20for%20cumulative%20servers%0A%20%20%20%20ax2%20%3D%20ax1.twinx()%0A%20%20%20%20ax2.plot(cumulative_servers.index%2C%20cumulative_servers.values%2C%20color%3D'darkblue'%2C%20marker%3D'.'%2C%20linewidth%3D2%2C%20label%3D'Cumulative%20Servers')%0A%20%20%20%20ax2.set_ylabel('Cumulative%20Servers'%2C%20color%3D'darkblue')%0A%20%20%20%20ax2.tick_params(axis%3D'y'%2C%20labelcolor%3D'darkblue')%0A%20%20%20%20ax2.axis(ymin%3D0)%0A%0A%20%20%20%20%23%20Add%20value%20label%20to%20last%20cumulative%20data%20point%0A%20%20%20%20last_date%20%3D%20cumulative_servers.index%5B-1%5D%0A%20%20%20%20last_value%20%3D%20cumulative_servers.values%5B-1%5D%0A%20%20%20%20ax2.annotate(str(last_value)%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20xy%3D(last_date%2C%20last_value)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20xytext%3D(5%2C%20-1)%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20textcoords%3D'offset%20points'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fontsize%3D6%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20color%3D'black'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ha%3D'left'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20va%3D'bottom')%0A%0A%20%20%20%20plt.title('MCP%20Servers%3A%20Daily%20New%20vs%20Cumulative%20Total')%0A%20%20%20%20fig.tight_layout()%0A%20%20%20%20return%20(fig%2C)%0A%0A%0A%40app.cell%0Adef%20_(fig)%3A%0A%20%20%20%20fig%0A%20%20%20%20return%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <!-- This is a portal for the data editor to render in -->
+    <div id="portal" data-testid="glide-portal" style="position: fixed; left: 0; top: 0; z-index: 9999"></div>
+    <script data-marimo="true">
+      window.__MARIMO_MOUNT_CONFIG__ = {
+            "filename": "notebook.py",
+            "mode": "read",
+            "version": "0.15.5",
+            "serverToken": "unused",
+            "config": {"ai": {"models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "copilot": false}, "display": {"cell_output": "above", "code_editor_font_size": 14, "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "medium", "reference_highlighting": false, "theme": "system"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": true}}, "package_management": {"manager": "pip"}, "runtime": {"auto_instantiate": true, "auto_reload": "off", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"sql_output": "auto", "width": "medium"},
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null,
+        };
+    </script>
+  </body>
+</html>
