@@ -4,7 +4,7 @@ This project populates a local SQLite database with server information from the 
 
 ## Overview
 
-There are currently `159` MCP servers that have been listed on the official registry.
+See the live github page: https://rosmur.github.io/official-mcp-registry-database/
 
 ## Usage
 
