@@ -15,10 +15,10 @@ def create_tables(cursor):
     cursor.executescript(schema_sql)
 
 
-def get_server_type(server_data):
-    if server_data.get("remotes"):
+def get_server_type(server_details):
+    if server_details.get("remotes"):
         return "remote"
-    elif server_data.get("packages"):
+    elif server_details.get("packages"):
         return "local"
     return "unknown"
 
@@ -30,6 +30,9 @@ def populate_database():
     response = httpx.get(API_URL, params=params)
     response.raise_for_status()  # Raise an exception for HTTP errors
     data = response.json()
+
+    if not isinstance(data, dict):
+        raise ValueError("Invalid JSON response from API")
 
     # Setup for paginated API
     next_cursor = None
@@ -50,12 +53,16 @@ def populate_database():
                 params["cursor"] = next_cursor
 
             servers_data = data.get("servers", [])
-            for server in servers_data:
-                # Insert into servers table
-                server_type = get_server_type(server)
-                meta = server.get("_meta", {}).get("io.modelcontextprotocol.registry/official", {})
+            for server_entry in servers_data:
+                server_details = server_entry.get("server", {})
+                meta = server_entry.get("_meta", {}).get(
+                    "io.modelcontextprotocol.registry/official", {}
+                )
 
-                full_name = server.get("name", "")
+                # Insert into servers table
+                server_type = get_server_type(server_details)
+
+                full_name = server_details.get("name", "")
                 if "/" in full_name:
                     developer, name = full_name.split("/", 1)
                 else:
@@ -67,20 +74,20 @@ def populate_database():
                     (
                         developer,
                         name,
-                        server.get("description"),
-                        server.get("status"),
-                        server.get("version"),
+                        server_details.get("description"),
+                        server_details.get("status"),
+                        server_details.get("version"),
                         server_type,
                         meta.get("id"),
-                        meta.get("published_at"),
-                        meta.get("updated_at"),
-                        meta.get("is_latest"),
+                        meta.get("publishedAt"),
+                        meta.get("updatedAt"),
+                        meta.get("isLatest"),
                     ),
                 )
                 server_id = cursor.lastrowid
 
                 # Insert into repositories table
-                repository = server.get("repository")
+                repository = server_details.get("repository")
                 if repository:
                     cursor.execute(
                         "INSERT INTO repositories (server_id, url, source, subfolder, repo_id) VALUES (?, ?, ?, ?, ?)",
@@ -94,7 +101,7 @@ def populate_database():
                     )
 
             total_servers_processed += len(servers_data)
-            next_cursor = data.get("metadata", {}).get("next_cursor")
+            next_cursor = data.get("metadata", {}).get("nextCursor")
 
             if not next_cursor:
                 break
