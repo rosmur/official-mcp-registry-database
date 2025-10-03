@@ -1,0 +1,253 @@
+{
+    "metadata": {
+        "count": 0,
+        "nextCursor": "string"
+    },
+    "servers": [
+        {
+            "_meta": {
+                "io.modelcontextprotocol.registry/official": {
+                    "isLatest": true,
+                    "publishedAt": "2019-08-24T14:15:22Z",
+                    "status": "string",
+                    "updatedAt": "2019-08-24T14:15:22Z"
+                }
+            },
+            "server": {
+                "$schema": "string",
+                "_meta": {
+                    "io.modelcontextprotocol.registry/publisher-provided": {
+                        "property1": null,
+                        "property2": null
+                    }
+                },
+                "description": "string",
+                "name": "string",
+                "packages": [
+                    {
+                        "environmentVariables": [
+                            {
+                                "choices": [
+                                    "string"
+                                ],
+                                "default": "string",
+                                "description": "string",
+                                "format": "string",
+                                "isRequired": true,
+                                "isSecret": true,
+                                "name": "string",
+                                "value": "string",
+                                "variables": {
+                                    "property1": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    },
+                                    "property2": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    }
+                                }
+                            }
+                        ],
+                        "fileSha256": "string",
+                        "identifier": "string",
+                        "packageArguments": [
+                            {
+                                "choices": [
+                                    "string"
+                                ],
+                                "default": "string",
+                                "description": "string",
+                                "format": "string",
+                                "isRepeated": true,
+                                "isRequired": true,
+                                "isSecret": true,
+                                "name": "string",
+                                "type": "string",
+                                "value": "string",
+                                "valueHint": "string",
+                                "variables": {
+                                    "property1": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    },
+                                    "property2": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    }
+                                }
+                            }
+                        ],
+                        "registryBaseUrl": "string",
+                        "registryType": "string",
+                        "runtimeArguments": [
+                            {
+                                "choices": [
+                                    "string"
+                                ],
+                                "default": "string",
+                                "description": "string",
+                                "format": "string",
+                                "isRepeated": true,
+                                "isRequired": true,
+                                "isSecret": true,
+                                "name": "string",
+                                "type": "string",
+                                "value": "string",
+                                "valueHint": "string",
+                                "variables": {
+                                    "property1": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    },
+                                    "property2": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    }
+                                }
+                            }
+                        ],
+                        "runtimeHint": "string",
+                        "transport": {
+                            "headers": [
+                                {
+                                    "choices": [
+                                        "string"
+                                    ],
+                                    "default": "string",
+                                    "description": "string",
+                                    "format": "string",
+                                    "isRequired": true,
+                                    "isSecret": true,
+                                    "name": "string",
+                                    "value": "string",
+                                    "variables": {
+                                        "property1": {
+                                            "choices": [
+                                                "string"
+                                            ],
+                                            "default": "string",
+                                            "description": "string",
+                                            "format": "string",
+                                            "isRequired": true,
+                                            "isSecret": true,
+                                            "value": "string"
+                                        },
+                                        "property2": {
+                                            "choices": [
+                                                "string"
+                                            ],
+                                            "default": "string",
+                                            "description": "string",
+                                            "format": "string",
+                                            "isRequired": true,
+                                            "isSecret": true,
+                                            "value": "string"
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "string",
+                            "url": "string"
+                        },
+                        "version": "string"
+                    }
+                ],
+                "remotes": [
+                    {
+                        "headers": [
+                            {
+                                "choices": [
+                                    "string"
+                                ],
+                                "default": "string",
+                                "description": "string",
+                                "format": "string",
+                                "isRequired": true,
+                                "isSecret": true,
+                                "name": "string",
+                                "value": "string",
+                                "variables": {
+                                    "property1": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    },
+                                    "property2": {
+                                        "choices": [
+                                            "string"
+                                        ],
+                                        "default": "string",
+                                        "description": "string",
+                                        "format": "string",
+                                        "isRequired": true,
+                                        "isSecret": true,
+                                        "value": "string"
+                                    }
+                                }
+                            }
+                        ],
+                        "type": "string",
+                        "url": "string"
+                    }
+                ],
+                "repository": {
+                    "id": "string",
+                    "source": "string",
+                    "subfolder": "string",
+                    "url": "string"
+                },
+                "version": "string",
+                "websiteUrl": "string"
+            }
+        }
+    ]
+}
