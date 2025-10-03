@@ -29,8 +29,7 @@ def get_server_type(server_details):
 
 
 def populate_database():
-    logger.info("Starting database population process.")
-    # Step 1: Fetch Data
+    # Step 1: Initialize params
 
     params = {"limit": 100, "version": "latest"}
 
@@ -84,16 +83,16 @@ def populate_database():
                 server_type = get_server_type(server_details)
 
                 if "/" in full_name:
-                    developer, name = full_name.split("/", 1)
+                    developer, subsring_name = full_name.split("/", 1)
                 else:
                     developer = ""
-                    name = full_name
+                    subsring_name = full_name
 
                 cursor.execute(
-                    "INSERT INTO servers (developer, name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO servers (developer, mcp_name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest, entry_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (
                         developer,
-                        name,
+                        subsring_name,
                         server_details.get("description"),
                         server_details.get("status"),
                         server_details.get("version"),
@@ -102,6 +101,7 @@ def populate_database():
                         meta.get("publishedAt"),
                         meta.get("updatedAt"),
                         meta.get("isLatest"),
+                        full_name,
                     ),
                 )
                 server_id = cursor.lastrowid

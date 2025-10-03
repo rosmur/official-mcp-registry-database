@@ -2,7 +2,7 @@
 CREATE TABLE servers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     developer TEXT NOT NULL,
-    name TEXT NOT NULL,
+    mcp_name TEXT NOT NULL,
     description TEXT,
     status TEXT,
     version TEXT,
@@ -10,7 +10,8 @@ CREATE TABLE servers (
     meta_id TEXT UNIQUE, -- The UUID from the JSON, now in servers table
     published_at TEXT,
     updated_at TEXT,
-    is_latest BOOLEAN
+    is_latest BOOLEAN,
+    entry_name TEXT NOT NULL UNIQUE
 );
 
 -- Table for repository details, linked to servers
