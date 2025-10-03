@@ -24,7 +24,20 @@ def get_server_type(server_data):
 
 
 def populate_database():
+    # Step 1: Fetch Data
+
+    params = {"limit": 100, "version": "latest"}
+    response = httpx.get(API_URL, params=params)
+    response.raise_for_status()  # Raise an exception for HTTP errors
+    data = response.json()
+
+    # Setup for paginated API
+    next_cursor = None
+    total_servers_processed = 0
+
+    # Step 2: Establish connnection to db
     conn = None
+
     try:
         conn = sqlite3.connect(DATABASE_FILE)
         cursor = conn.cursor()
@@ -32,18 +45,9 @@ def populate_database():
         # Create tables
         create_tables(cursor)
 
-        # Fetch data from API with pagination
-        next_cursor = None
-        total_servers_processed = 0
-
         while True:
-            params = {"limit": 100, "version": "latest"}
             if next_cursor:
                 params["cursor"] = next_cursor
-
-            response = httpx.get(API_URL, params=params)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            data = response.json()
 
             servers_data = data.get("servers", [])
             for server in servers_data:
