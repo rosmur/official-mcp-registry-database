@@ -1,0 +1,60 @@
+{
+    "servers": [
+        {
+            "server": {
+                "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+                "name": "ai.alpic.test/test-mcp-server",
+                "description": "Alpic Test MCP Server - great server!",
+                "repository": {
+                    "url": "",
+                    "source": ""
+                },
+                "version": "0.0.1",
+                "remotes": [
+                    {
+                        "type": "streamable-http",
+                        "url": "https://test.alpic.ai/"
+                    }
+                ]
+            },
+            "_meta": {
+                "io.modelcontextprotocol.registry/official": {
+                    "status": "active",
+                    "publishedAt": "2025-09-10T13:57:43.256739Z",
+                    "updatedAt": "2025-09-10T13:57:43.256739Z",
+                    "isLatest": true
+                }
+            }
+        },
+        {
+            "server": {
+                "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+                "name": "ai.explorium/mcp-explorium",
+                "description": "Access live company and contact data from Explorium's AgentSource B2B platform.",
+                "repository": {
+                    "url": "",
+                    "source": ""
+                },
+                "version": "1.0.0",
+                "remotes": [
+                    {
+                        "type": "sse",
+                        "url": "https://mcp-github-registry.explorium.ai/sse"
+                    }
+                ]
+            },
+            "_meta": {
+                "io.modelcontextprotocol.registry/official": {
+                    "status": "active",
+                    "publishedAt": "2025-09-16T21:06:15.352229Z",
+                    "updatedAt": "2025-09-16T21:06:15.352229Z",
+                    "isLatest": true
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "nextCursor": "ai.explorium/mcp-explorium:1.0.0",
+        "count": 2
+    }
+}
