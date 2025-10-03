@@ -89,15 +89,14 @@ def populate_database():
                     subsring_name = full_name
 
                 cursor.execute(
-                    "INSERT INTO servers (developer, mcp_name, description, status, version, server_type, meta_id, published_at, updated_at, is_latest, entry_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO servers (developer, mcp_name, description, status, version, server_type, published_at, updated_at, is_latest, entry_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (
                         developer,
                         subsring_name,
                         server_details.get("description"),
-                        server_details.get("status"),
+                        meta.get("status"),
                         server_details.get("version"),
                         server_type,
-                        meta.get("id"),
                         meta.get("publishedAt"),
                         meta.get("updatedAt"),
                         meta.get("isLatest"),
