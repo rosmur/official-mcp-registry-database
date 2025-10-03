@@ -7,7 +7,6 @@ CREATE TABLE servers (
     status TEXT,
     version TEXT,
     server_type TEXT, -- New column to indicate 'remote' or 'local' based on your custom logic
-    meta_id TEXT UNIQUE, -- The UUID from the JSON, now in servers table
     published_at TEXT,
     updated_at TEXT,
     is_latest BOOLEAN,
