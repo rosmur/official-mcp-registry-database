@@ -26,7 +26,7 @@ If you wish to run this locally, setup as below
 1. **Install:**
 
     ```bash
-    git clone 
+    git clone https://github.com/rosmur/official-mcp-registry-database.git
     cd official-mcp-registry-database
     uv sync # Requires uv package manager
     ```
